@@ -7,7 +7,7 @@
 	<artifactId>facilitator</artifactId>
 	<version>0.0.2-SNAPSHOT</version>
 	<packaging>${packaging.type}</packaging>
-	
+
 	<name>stock-facilitator</name>
 	<description>Stock Exchange Facilitator App</description>
 
@@ -15,7 +15,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.3.6.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
@@ -25,28 +25,33 @@
 	</properties>
 
 	<dependencies>
+
+		<!-- lombok to eleminate boiler plate code in pure data classes -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>1.16.6</version>
 		</dependency>
+
+		<!-- spring boot starter kit for web -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+
+		<!-- JSoup to nicely and easily parse HTML code from other webpages -->
 		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
 			<version>1.9.2</version>
 		</dependency>
-		
+
+		<!-- Spring Cloud integration -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-spring-service-connector</artifactId>
@@ -60,54 +65,72 @@
 			<artifactId>spring-cloud-cloudfoundry-connector</artifactId>
 		</dependency>
 
+		<!-- Spring boot configuration processor to read ConfigurationSetting classes -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
+
+		<!-- Thymelead templating engine -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
-	</dependencies>
-	
-	<profiles>
-  <profile>
-      <id>war</id>
-      <properties>
-        <packaging.type>war</packaging.type>
-      </properties>
-      <dependencies>
-        <dependency>
-		  <groupId>org.springframework.boot</groupId>
-		  <artifactId>spring-boot-starter-tomcat</artifactId>
-		  <scope>provided</scope>
+
+		<!-- Spring Security -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
 		</dependency>
-      </dependencies>
-      <build>
-	    <plugins>
-	      <plugin>
-	        <groupId>org.springframework.boot</groupId>
-	        <artifactId>spring-boot-maven-plugin</artifactId>
-	      </plugin>
-	      <plugin>
-            <artifactId>maven-clean-plugin</artifactId>
-            <version>2.5</version>
-            <executions>
-              <execution>
-                <id>auto-clean</id>
-                <phase>initialize</phase>
-                <goals>
-                  <goal>clean</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-	</plugins>
-    </build>
-  </profile>
-</profiles>
-	
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity4</artifactId>
+		</dependency>
+
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>war</id>
+			<properties>
+				<packaging.type>war</packaging.type>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<artifactId>maven-clean-plugin</artifactId>
+						<version>2.5</version>
+						<executions>
+							<execution>
+								<id>auto-clean</id>
+								<phase>initialize</phase>
+								<goals>
+									<goal>clean</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -116,5 +139,5 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 </project>

@@ -14,11 +14,11 @@ public class HomeController {
 	@Autowired
 	ConfigurationSettings cs;
 	
-	@RequestMapping("/")
-    public String index(Model model) {
+	@RequestMapping("/secured/home")
+    public String home(Model model) {
 		StockDataCollector dataCollector = cs.getDataCollector();
 		model.addAttribute("stocks", dataCollector.getData());
-		return "index";
+		return "home";
 		
     }
 	

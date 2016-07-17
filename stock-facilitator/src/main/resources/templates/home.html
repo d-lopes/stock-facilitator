@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<title>Stock Facilitator: Overview</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+	<div class="logout" style="float:right" th:fragment="logout" sec:authorize="isAuthenticated()">
+		Logged in user: <span sec:authentication="name"></span>
+		(<span sec:authentication="principal.authorities"></span>)
+		<div>
+			<form action="#" th:action="@{/logout}" method="post">
+				<input type="submit" value="Logout" />
+			</form>
+		</div>
+	</div>
+
+	<div class="content" style="float:left">
+	<table>
+		<thead>
+			<tr>
+				<th>Index</th>
+				<th>WKN</th>
+				<th>ISIN</th>
+				<th>Name</th>
+				<th>Price</th>
+				<th>Bid</th>
+				<th>Ask</th>
+				<th>Change (percentage)</th>
+				<th>Change (absolute)</th>
+				<th>Time</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			<tr th:each="si : ${stocks}">
+				<td th:text="${si.Index}">XYZ</td>
+				<td th:text="${si.WKN}">ABCDEF</td>
+				<td th:text="${{si.ISIN}}">DE000ABCDEF0</td>
+				<td th:text="${{si.name}}">Deutsche Bank</td>
+				<td th:text="${{si.price}}">12,67</td>
+				<td th:text="${{si.bid}}">13,45</td>
+				<td th:text="${{si.ask}}">12,99</td>
+				<td th:text="${{si.changePercentage}}">1,49%</td>
+				<td th:text="${{si.changeAbsolute}}">0,75</td>
+				<td th:text="${{si.time}}">11:54:34</td>
+			</tr>
+
+		</tbody>
+	</table>
+	</div>
+	
+</body>
+</html>

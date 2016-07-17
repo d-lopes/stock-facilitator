@@ -1,43 +1,14 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Serving Web Content</title>
+    <title>Stock Facilitator: Start</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
     
-  <table>
-    <thead>
-      <tr>
-      	<th>Index</th>
-        <th>WKN</th>
-        <th>ISIN</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Bid</th>
-        <th>Ask</th>
-        <th>Change (percentage)</th>
-        <th>Change (absolute)</th>
-        <th>Time</th>
-      </tr>
-    </thead>
-    <tbody>
-    
-      <tr th:each="si : ${stocks}">
-      	<td th:text="${si.Index}">XYZ</td>
-      	<td th:text="${si.WKN}">ABCDEF</td>
-      	<td th:text="${{si.ISIN}}">DE000ABCDEF0</td>
-      	<td th:text="${{si.name}}">Deutsche Bank</td>
-      	<td th:text="${{si.price}}">12,67</td>
-      	<td th:text="${{si.bid}}">13,45</td>
-      	<td th:text="${{si.ask}}">12,99</td>
-      	<td th:text="${{si.changePercentage}}">1,49%</td>
-      	<td th:text="${{si.changeAbsolute}}">0,75</td>
-      	<td th:text="${{si.time}}">11:54:34</td>
-      </tr>
-          
-    </tbody>
-  </table>
+  <h1>welcome to the Stock Facilitator</h1>
+  
+  Please login in order to <a href="/secured/home" th:href="@{/secured/home}">view the latest proposals</a> for investments in stocks.
         
 </body>
 </html>
