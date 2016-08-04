@@ -4,11 +4,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = StockFacilitatorApplication.class)
-@WebAppConfiguration
+//@WebAppConfiguration <-- removed because this avoids context sharing with 
+// class HTMLFileExtractorTest (this is crucial because otherwise the SQL 
+// to create the database schema is run twice and will product on erro on 
+// the second execution)
 public class StockFacilitatorApplicationTests {
 
 	@Test

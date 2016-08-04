@@ -5,7 +5,7 @@
 
 	<groupId>de.dlopes.stocks</groupId>
 	<artifactId>facilitator</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<packaging>${packaging.type}</packaging>
 
 	<name>stock-facilitator</name>
@@ -92,6 +92,16 @@
 			<artifactId>thymeleaf-extras-springsecurity4</artifactId>
 		</dependency>
 
+		<!-- in memory database for local tests + JPA -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		    
 	</dependencies>
 
 	<profiles>
@@ -140,4 +150,5 @@
 		</plugins>
 	</build>
 
+	<url>https://github.com/d-lopes/stock-facilitator</url>
 </project>

@@ -20,7 +20,7 @@ import org.jsoup.select.Elements;
 import org.springframework.util.StringUtils;
 
 import de.dlopes.stocks.data.StockInfo;
-import de.dlopes.stocks.data.StockInfoImpl;
+import de.dlopes.stocks.facilitator.data.StockInfoImpl;
 
 public class HTMLFileExtractor implements StockDataCollector {
 

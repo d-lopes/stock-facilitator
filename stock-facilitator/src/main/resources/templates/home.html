@@ -17,39 +17,43 @@
 		</div>
 	</div>
 
-	<div class="content" style="float:left">
-	<table>
-		<thead>
-			<tr>
-				<th>Index</th>
-				<th>WKN</th>
-				<th>ISIN</th>
-				<th>Name</th>
-				<th>Price</th>
-				<th>Bid</th>
-				<th>Ask</th>
-				<th>Change (percentage)</th>
-				<th>Change (absolute)</th>
-				<th>Time</th>
-			</tr>
-		</thead>
-		<tbody>
-
-			<tr th:each="si : ${stocks}">
-				<td th:text="${si.Index}">XYZ</td>
-				<td th:text="${si.WKN}">ABCDEF</td>
-				<td th:text="${{si.ISIN}}">DE000ABCDEF0</td>
-				<td th:text="${{si.name}}">Deutsche Bank</td>
-				<td th:text="${{si.price}}">12,67</td>
-				<td th:text="${{si.bid}}">13,45</td>
-				<td th:text="${{si.ask}}">12,99</td>
-				<td th:text="${{si.changePercentage}}">1,49%</td>
-				<td th:text="${{si.changeAbsolute}}">0,75</td>
-				<td th:text="${{si.time}}">11:54:34</td>
-			</tr>
-
-		</tbody>
-	</table>
+	<div class="content" style="float:left" th:switch="${#lists.isEmpty(stocks)}">
+		<p th:case="true">
+			Stock info not loaded yet. 
+			Click <a href="#" th:href="@{/secured/stocks/update}">here</a> to refresh stock information.
+		</p>
+		<table th:case="*">
+			<thead>
+				<tr>
+					<th>Index</th>
+					<th>WKN</th>
+					<th>ISIN</th>
+					<th>Name</th>
+					<th>Price</th>
+					<th>Bid</th>
+					<th>Ask</th>
+					<th>Change (percentage)</th>
+					<th>Change (absolute)</th>
+					<th>Time</th>
+				</tr>
+			</thead>
+			<tbody>
+	
+				<tr th:each="si : ${stocks}">
+					<td th:text="${si.Index}">XYZ</td>
+					<td th:text="${si.WKN}">ABCDEF</td>
+					<td th:text="${{si.ISIN}}">DE000ABCDEF0</td>
+					<td th:text="${{si.name}}">Deutsche Bank</td>
+					<td th:text="${{si.price}}">12,67</td>
+					<td th:text="${{si.bid}}">13,45</td>
+					<td th:text="${{si.ask}}">12,99</td>
+					<td th:text="${{si.changePercentage}}">1,49%</td>
+					<td th:text="${{si.changeAbsolute}}">0,75</td>
+					<td th:text="${{si.time}}">11:54:34</td>
+				</tr>
+	
+			</tbody>
+		</table>
 	</div>
 	
 </body>

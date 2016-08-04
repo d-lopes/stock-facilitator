@@ -13,8 +13,13 @@ import lombok.Data;
 @ConfigurationProperties(prefix="config")
 public class ConfigurationSettings {
 
+	// member varialbles are automatically bound to application.yaml config due to
+	// @ConfigurationProperties annotation of the class
 	private String url;
-	
+	private String defaultUser;
+	private String defaultPassword;
+	private String defaultRole;
+		
 	@Bean
 	public StockDataCollector getDataCollector() {
 		return new HTMLFileExtractor(url);
