@@ -1,0 +1,7 @@
+applications: 
+  - name: stock-facilitator 
+    services:
+        - sql-db-service
+    env: 
+      SPRING_PROFILES_DEFAULT: cloud 
+    
