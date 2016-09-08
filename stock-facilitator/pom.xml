@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2016 Dominique Lopes.
+    All rights reserved. 
+   
+    This Source Code Form is subject to the terms of the Mozilla Public 
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at http://mozilla.org/MPL/2.0/.
+   
+    Contributors:
+        Dominique Lopes - initial API and implementation
+ -->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>de.dlopes.stocks</groupId>
 	<artifactId>facilitator</artifactId>
-	<version>0.0.4-SNAPSHOT</version>
+	<version>0.0.5-SNAPSHOT</version>
 	<packaging>${packaging.type}</packaging>
 
 	<name>stock-facilitator</name>
@@ -164,6 +176,11 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+                <groupId>net.surguy</groupId>
+                <artifactId>maven-displaylicense-plugin</artifactId>
+                <version>0.6</version>
+            </plugin>
 		</plugins>
 	</build>
 
