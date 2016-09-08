@@ -25,7 +25,7 @@ The web application is still in pre-release phase. Thus there are no screenshos 
 * see [LICENSE](https://github.com/d-lopes/stock-facilitator/blob/master/LICENSE.md) file
 
 ## Version 
-* Version 0.3
+* Version 0.4
 
 ## Contact
 #### Dominique Lopes
