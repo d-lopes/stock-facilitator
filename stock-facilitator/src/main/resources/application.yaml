@@ -1,5 +1,5 @@
 config:
   url: http://www.finanzen.net/aktien/DAX-Realtimekurse
-  defaultUser: stock
-  defaultPassword: facilitator
+  defaultUser: user
+  defaultPassword: password
   defaultRole: USER
