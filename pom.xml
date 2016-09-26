@@ -176,11 +176,34 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<!-- display license plugin -->
 			<plugin>
                 <groupId>net.surguy</groupId>
                 <artifactId>maven-displaylicense-plugin</artifactId>
                 <version>0.6</version>
             </plugin>
+            <!-- test coverage plugins -->
+            <plugin>
+			    <groupId>org.eluder.coveralls</groupId>
+			    <artifactId>coveralls-maven-plugin</artifactId>
+			    <version>4.3.0</version>
+			    <configuration>
+			        <repoToken>Rv2XHO9sQ2BQ2YSUBMNR4VWRV9QsQ0sB2</repoToken>
+			    </configuration>
+			</plugin>
+			<plugin>
+			    <groupId>org.jacoco</groupId>
+			    <artifactId>jacoco-maven-plugin</artifactId>
+			    <version>0.7.7.201606060606</version>
+			    <executions>
+			        <execution>
+			            <id>prepare-agent</id>
+			            <goals>
+			                <goal>prepare-agent</goal>
+			            </goals>
+			        </execution>
+			    </executions>
+			</plugin>
 		</plugins>
 	</build>
 
