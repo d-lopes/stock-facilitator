@@ -18,7 +18,7 @@
 	<groupId>de.dlopes.stocks</groupId>
 	<artifactId>facilitator</artifactId>
 	<version>0.0.5-SNAPSHOT</version>
-	<packaging>${packaging.type}</packaging>
+	<packaging>war</packaging>
 
 	<name>stock-facilitator</name>
 	<description>Stock Exchange Facilitator App</description>
@@ -168,9 +168,6 @@
 	<profiles>
 		<profile>
 			<id>war</id>
-			<properties>
-				<packaging.type>war</packaging.type>
-			</properties>
 			<dependencies>
 				<dependency>
 					<groupId>org.springframework.boot</groupId>
