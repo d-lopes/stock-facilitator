@@ -11,19 +11,21 @@
  *******************************************************************************/
 package de.dlopes.stocks.facilitator.data;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-import de.dlopes.stocks.data.StockInfo;
 import lombok.Data;
 
 @Data
 @Entity
-public class StockInfoImpl implements StockInfo {
+public class StockInfo implements Serializable {
 	
+	private static final long serialVersionUID = 2854745888464616931L;
+
 	@Id
 	@GeneratedValue
 	private Long id;

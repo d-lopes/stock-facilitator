@@ -21,14 +21,13 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import de.dlopes.stocks.data.StockInfo;
-import de.dlopes.stocks.facilitator.StockFacilitatorApplication;
+import de.dlopes.stocks.facilitator.data.StockInfo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(StockFacilitatorApplication.class)
+@SpringBootTest
 public class HTMLFileExtractorTest {
 	
 	private static final String url = "file://./src/test/resources/test.html";

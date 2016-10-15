@@ -1,0 +1,64 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--/* 
+ Copyright (c) 2016 Dominique Lopes.
+ All rights reserved. 
+
+ This Source Code Form is subject to the terms of the Mozilla Public 
+ License, v. 2.0. If a copy of the MPL was not distributed with this
+ file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+ Contributors:
+     Dominique Lopes - initial API and implementation
+*/-->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/layouts/standard.xhtml">
+
+	<ui:define name="title">Overview</ui:define>
+
+	<ui:define name="content">
+
+		<p>The following table lists all loaded stock information:</p>
+		
+		<p:dataTable id="stocks" var="si" value="#{stocks}">
+			<!-- later:
+			paginator="true" dynamic="true" rows="#{stocks.pageSize}" page="#{stocks.currentPage}" lazy="true"> -->
+
+			<f:facet name="header">Index: DAX</f:facet>
+			<p:column sortBy="#{si.name}">
+				<f:facet name="header">Name</f:facet>
+			#{si.name}
+			</p:column>
+			<p:column>
+				<f:facet name="header">WKN/ISIN</f:facet>
+			#{si.WKN}/#{si.ISIN}
+			</p:column>
+			<p:column>
+				<f:facet name="header">Price</f:facet>
+			#{si.price}
+			</p:column>
+			<p:column>
+				<f:facet name="header">Bid</f:facet>
+			#{si.bid}
+			</p:column>
+			<p:column>
+				<f:facet name="header">Ask</f:facet>
+			#{si.ask}
+			</p:column>
+			<p:column>
+				<f:facet name="header">Change (abs./%)</f:facet>
+			#{si.changeAbsolute}/#{si.changePercentage}%
+			</p:column>
+			<p:column>
+				<f:facet name="header">Last update</f:facet>
+			#{si.time}
+			</p:column>
+		</p:dataTable>
+
+	</ui:define>
+
+</ui:composition>

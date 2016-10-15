@@ -1,0 +1,38 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--/* 
+ Copyright (c) 2016 Dominique Lopes.
+ All rights reserved. 
+
+ This Source Code Form is subject to the terms of the Mozilla Public 
+ License, v. 2.0. If a copy of the MPL was not distributed with this
+ file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+ Contributors:
+     Dominique Lopes - initial API and implementation
+*/-->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/layouts/standard.xhtml">
+	
+<ui:define name="title">Start</ui:define>
+
+<ui:define name="content">
+	<h1>welcome to the Stock Facilitator</h1>
+  
+  	<p>
+  		<span>Please login in order to</span> 
+  	
+	  	<h:outputLink value="stock-info" > 
+	 		<h:outputText value="view the latest proposals" /> 
+	 	</h:outputLink><br/> 
+  	
+  		<span>for investments in stocks.</span>
+  	</p>
+  	
+</ui:define>
+
+</ui:composition>

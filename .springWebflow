@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<webflow-project-description>
+	<version>1</version>
+	<pluginVersion><![CDATA[3.8.0.201606301005-RELEASE]]></pluginVersion>
+	<configs>
+		<config>
+			<file>src/main/resources/flows/define-rules-flow.xml</file>
+			<name><![CDATA[define-rules-flow]]></name>
+		</config>
+	</configs>
+</webflow-project-description>
