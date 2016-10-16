@@ -18,9 +18,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import de.dlopes.stocks.data.StockInfo;
 import de.dlopes.stocks.facilitator.config.ConfigurationSettings;
-import de.dlopes.stocks.facilitator.data.StockInfoImpl;
+import de.dlopes.stocks.facilitator.data.StockInfo;
 import de.dlopes.stocks.facilitator.data.StockInfoRepository;
 import de.dlopes.stocks.facilitator.services.StockDataCollector;
 
@@ -36,7 +35,7 @@ public class HomeController {
 	@RequestMapping("/secured/home")
     public String home(Model model) {
 		
-		List<StockInfoImpl> siList = siRepo.findAll();
+		List<StockInfo> siList = siRepo.findAll();
 		model.addAttribute("stocks", siList);
 		
 		return "home";
@@ -50,7 +49,7 @@ public class HomeController {
 		List<StockInfo> siList = dataCollector.getData();
 		
 		for (StockInfo si : siList) {
-			siRepo.save((StockInfoImpl) si);
+			siRepo.save((StockInfo) si);
 		}
 		siRepo.flush();
 		

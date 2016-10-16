@@ -9,7 +9,7 @@
  * Contributors:
  *     Dominique Lopes - initial API and implementation
  *******************************************************************************/
-package de.dlopes.stocks.facilitator.security;
+package de.dlopes.stocks.facilitator.services.impl;
 
 import java.util.ArrayList;
 import java.util.HashSet;

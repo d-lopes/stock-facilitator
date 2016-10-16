@@ -13,7 +13,7 @@ package de.dlopes.stocks.facilitator.services;
 
 import java.util.List;
 
-import de.dlopes.stocks.data.StockInfo;
+import de.dlopes.stocks.facilitator.data.StockInfo;
 
 public interface StockDataCollector {
 

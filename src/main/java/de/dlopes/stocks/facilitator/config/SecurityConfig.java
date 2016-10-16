@@ -9,7 +9,7 @@
  * Contributors:
  *     Dominique Lopes - initial API and implementation
  *******************************************************************************/
-package de.dlopes.stocks.facilitator.security;
+package de.dlopes.stocks.facilitator.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
