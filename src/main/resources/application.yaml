@@ -10,6 +10,7 @@
 #     Dominique Lopes - initial API and implementation
 ###############################################################################
 config:
+  dispatcherServletCxtpth: /site
   url: http://www.finanzen.net/aktien/DAX-Realtimekurse
   defaultUser: user
   defaultPassword: password

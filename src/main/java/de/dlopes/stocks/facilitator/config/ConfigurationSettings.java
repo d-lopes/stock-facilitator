@@ -30,6 +30,7 @@ public class ConfigurationSettings {
 	private String defaultUser;
 	private String defaultPassword;
 	private String defaultRole;
+	private String dispatcherServletCxtpth;
 		
 	@Bean
 	public StockDataCollector getDataCollector() {

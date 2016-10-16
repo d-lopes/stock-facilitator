@@ -20,9 +20,25 @@ import org.springframework.webflow.engine.builder.support.FlowBuilderServices;
 import org.springframework.webflow.executor.FlowExecutor;
 import org.springframework.webflow.security.SecurityFlowExecutionListener;
 
+/**
+ * This class provides the annotation based Spring WebFlow config
+ * 
+ * @author Dominique Lopes
+ *
+ */
 @Configuration
 public class WebFlowConfig extends AbstractFacesFlowConfiguration {
 
+	/**
+	 * Executes flows:	<b>the central entry point</b> into the Spring Web Flow system.
+	 * Currently includes the following listeners:
+	 * <ul>
+	 * 	<li>a listener to create and release a FacesContext</li>
+	 *  <li>a listener to apply Spring Security authorities</li>
+	 * </ul>
+	 * 
+	 * @return a FlowExecutor instance
+	 */
 	@Bean
 	public FlowExecutor flowExecutor() {
 		return getFlowExecutorBuilder(flowRegistry())
@@ -31,6 +47,12 @@ public class WebFlowConfig extends AbstractFacesFlowConfiguration {
 				.build();
 	}
 
+	/**
+	 * define and build the registry of executable flow definitions 
+	 * (this is served from the /WEB-INF/flows directory)
+	 * 
+	 * @return a FlowDefinitionRegistry instance
+	 */
 	@Bean
 	public FlowDefinitionRegistry flowRegistry() {
 		return getFlowDefinitionRegistryBuilder(flowBuilderServices())
@@ -39,6 +61,11 @@ public class WebFlowConfig extends AbstractFacesFlowConfiguration {
 				.build();
 	}
 
+	/**
+	 * Configures the Spring Web Flow JSF integration
+	 * 
+	 * @return a FlowBuilderServices instance
+	 */
 	@Bean
 	public FlowBuilderServices flowBuilderServices() {
 		return getFlowBuilderServicesBuilder().setDevelopmentMode(true).build();
