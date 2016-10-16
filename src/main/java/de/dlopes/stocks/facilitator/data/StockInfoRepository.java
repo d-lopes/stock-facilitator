@@ -13,7 +13,7 @@ package de.dlopes.stocks.facilitator.data;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface StockInfoRepository extends JpaRepository<StockInfoImpl, Long> {
+public interface StockInfoRepository extends JpaRepository<StockInfo, Long> {
 
 	// CRUD operations inherited from parent interface
 	

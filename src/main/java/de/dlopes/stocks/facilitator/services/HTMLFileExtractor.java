@@ -30,8 +30,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.util.StringUtils;
 
-import de.dlopes.stocks.data.StockInfo;
-import de.dlopes.stocks.facilitator.data.StockInfoImpl;
+import de.dlopes.stocks.facilitator.data.StockInfo;
 
 public class HTMLFileExtractor implements StockDataCollector {
 
@@ -69,7 +68,7 @@ public class HTMLFileExtractor implements StockDataCollector {
 				if (StringUtils.isEmpty(text) || "DAX".equals(text)) {
 					continue;
 				}
-				StockInfo si = new StockInfoImpl();
+				StockInfo si = new StockInfo();
 				si.setName(text);
 				text = e.select("td > div.display_none").text();
 				if (StringUtils.isEmpty(text)) {

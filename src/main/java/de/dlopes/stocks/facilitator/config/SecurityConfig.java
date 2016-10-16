@@ -9,7 +9,7 @@
  * Contributors:
  *     Dominique Lopes - initial API and implementation
  *******************************************************************************/
-package de.dlopes.stocks.facilitator.security;
+package de.dlopes.stocks.facilitator.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,8 +17,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-
-import de.dlopes.stocks.facilitator.config.ConfigurationSettings;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -31,7 +29,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
+		http
+			// disable Spring Securities' CSRF functionality (done in favor of Vaadin's implementation)
+			.csrf().disable()
+			.authorizeRequests()
 				// allow access to styles, images and the index page to everybody
 				.antMatchers("/css/**", "/img/**", "/index.html").permitAll()
 				// restrict secured area to users with a certain role

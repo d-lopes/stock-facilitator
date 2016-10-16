@@ -17,12 +17,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-import de.dlopes.stocks.data.StockInfo;
 import lombok.Data;
 
 @Data
 @Entity
-public class StockInfoImpl implements StockInfo {
+public class StockInfo {
 	
 	@Id
 	@GeneratedValue
