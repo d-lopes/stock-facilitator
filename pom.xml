@@ -60,6 +60,12 @@
 			<scope>test</scope>
 		</dependency>
 
+        <!-- Velocity templates to render the login page -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-velocity</artifactId>
+        </dependency>
+
 		<!-- JSoup to nicely and easily parse HTML code from other webpages -->
 		<dependency>
 			<groupId>org.jsoup</groupId>
