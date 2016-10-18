@@ -32,7 +32,7 @@
 			</div>
 		</c:if>
 
-<form name="f" action="${request.contextPath}/app/loginProcess" method="post">
+<form name="f" action="loginProcess" method="post">
 		<label for="username">Username</label>:
 		<c:if test="${not empty param.login_error}">
 			<c:set var="username" value="${sessionScope.SPRING_SECURITY_LAST_USERNAME}"/>
@@ -48,7 +48,7 @@
 					<input name="submit" type="submit" value="Login" />
 				</p>
 	</form>
-	<p><a href="/app/index">Back to home page</a></p>
+	<p><a href="index">Back to home page</a></p>
 	
 </ui:define>
 

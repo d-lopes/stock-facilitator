@@ -27,17 +27,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserDetailsService myUserDetailsService;
 	
+	@Autowired
+	private ConfigurationSettings config;
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
+		// retrieve configured contextPath for dispatcher servlet
+		String cxtpth = config.getDispatcherServletCxtpth();
+		
 		http.formLogin()
-				.loginPage("/app/login")
-				.loginProcessingUrl("/app/loginProcess")
-				.defaultSuccessUrl("/app/stock-info")
-				.failureUrl("/app/login?login_error=1")
+				.loginPage(cxtpth + "/login")
+				.loginProcessingUrl(cxtpth + "/loginProcess")
+				.defaultSuccessUrl(cxtpth + "/stock-info")
+				.failureUrl(cxtpth + "/login?login_error=1")
 			.and().logout()
-				.logoutUrl("/app/logout")
-				.logoutSuccessUrl("/app/index")
+				.logoutUrl(cxtpth + "/logout")
+				.logoutSuccessUrl(cxtpth + "/index")
 				
 		// Disable CSRF (won't work with JSF) but ensure last HTTP POST request is saved
 		// See https://jira.springsource.org/browse/SEC-2498

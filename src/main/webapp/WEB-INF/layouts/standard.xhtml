@@ -25,7 +25,7 @@
 		<sec:authorize ifAnyGranted="ROLE_USER">
 			<p:menubar>
 				<f:facet name="options">
-			       Welcome, ${currentUser.name} | <a href="${request.contextPath}/app/logout">Logout</a>
+			       Welcome, ${currentUser.name} | <a href="logout">Logout</a>
 		        </f:facet>
 			</p:menubar>
 		</sec:authorize>
