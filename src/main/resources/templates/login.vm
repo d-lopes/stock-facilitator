@@ -21,7 +21,7 @@
         #if ($error)
         <p class="error">Wrong user or password</p>
         #end
-        <form action="${contextPath}/login" method="post">
+        <form action="/login" method="post">
             <label for="username">Username</label>:
             <input type="text" id="username" name="username" /> <br />
             <label for="password">Password</label>:
