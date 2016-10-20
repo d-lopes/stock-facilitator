@@ -12,11 +12,16 @@
 package de.dlopes.stocks.facilitator.config;
 
 import javax.faces.webapp.FacesServlet;
+import javax.servlet.Servlet;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.DispatcherServletAutoConfiguration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.faces.mvc.JsfView;
@@ -29,6 +34,8 @@ import org.springframework.webflow.mvc.servlet.FlowHandlerMapping;
 
 import com.sun.faces.config.ConfigureListener;
 
+import de.dlopes.stocks.facilitator.StockFacilitatorApplication;
+
 
 /**
  * This class provides the annotation based JSF and Spring Web MVC config that would 
@@ -38,7 +45,7 @@ import com.sun.faces.config.ConfigureListener;
  *
  */
 @Configuration
-public class JsfMvcConfig {
+public class JsfMvcConfig extends SpringBootServletInitializer {
 
 	/*
 	 * configuration of context parameters is done by means of entries of 
@@ -56,6 +63,29 @@ public class JsfMvcConfig {
 	 */
 	@Autowired 
 	private ConfigurationSettings config;
+	
+    /**
+     * configure the application for packaging as deployable war 
+     */
+	@Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+        return builder.sources(StockFacilitatorApplication.class);
+    }
+    
+    /**
+     * initialize the deployable war with a minumum set of configuration params
+     */
+    @Override
+    public void onStartup(ServletContext servletContext) throws ServletException {
+        
+        /*
+         * set context param 'com.sun.faces.forceLoadConfiguration' in order to force JSF
+         * implementation to neglect the need of a FacesServlet(-Mapping) and ConfigureListener
+         * in a web.xml and to use annotation based configuration
+         */
+        servletContext.setInitParameter("com.sun.faces.forceLoadConfiguration", Boolean.TRUE.toString());
+        super.onStartup(servletContext);
+    }
 	
 	/**
 	 * create a Spring MVC dispatcher servlet so that we can slightly modify its
@@ -98,13 +128,13 @@ public class JsfMvcConfig {
 	 */
 	@Bean
     public ServletRegistrationBean facesServletRegistration() {
-        ServletRegistrationBean registration = new ServletRegistrationBean(
-            new FacesServlet(), "*.faces");
+        ServletRegistrationBean registration = new ServletRegistrationBean(new FacesServlet());
         registration.setLoadOnStartup(1);
+        registration.addUrlMappings("*.faces");
         return registration;
     }
 
-	/**
+    /**
 	 * Register JSF's configure listener
 	 * 
 	 * Hint: this is needed for proper initialization of JSF
@@ -117,8 +147,8 @@ public class JsfMvcConfig {
         return new ServletListenerRegistrationBean<ConfigureListener>(
             new ConfigureListener());
     }
-	
-	/**
+
+    /**
 	 * Maps request paths to flows in the flowRegistry; e.g. a path of 
 	 * /stock-info looks for a flow with id "stock-info" 
 	 * 

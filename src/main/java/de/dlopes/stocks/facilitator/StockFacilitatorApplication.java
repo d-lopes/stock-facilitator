@@ -13,16 +13,9 @@ package de.dlopes.stocks.facilitator;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class StockFacilitatorApplication extends SpringBootServletInitializer {
-
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder.sources(StockFacilitatorApplication.class);
-    }
+public class StockFacilitatorApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(StockFacilitatorApplication.class, args);
