@@ -18,22 +18,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
-import com.vaadin.spring.access.ViewAccessControl;
-import com.vaadin.ui.UI;
-
 import de.dlopes.stocks.facilitator.controller.PublicController;
-import de.dlopes.stocks.facilitator.ui.views.HomeView;
 
 @Component
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter implements ViewAccessControl {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private ConfigurationSettings config;
@@ -55,24 +48,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements View
             .sessionManagement().sessionFixation().newSession(); // Create completely new session	
 	}
 
+    /* 
+     * define some exceptions from the generally secured application
+     */
     @Override
     public void configure(WebSecurity web) throws Exception {
         web
-            .ignoring().antMatchers("/VAADIN/vaadinBootstrap.js") // access to vaadin specific bootstrap JS
+            .ignoring().antMatchers("/index.html") // access index
+            .and().ignoring().antMatchers("/VAADIN/vaadinBootstrap.js") // access to vaadin specific bootstrap JS
             .and().ignoring().antMatchers("/VAADIN/widgetsets/**") // access to vaadin specific widgets
             .and().ignoring().antMatchers("/css/*"); // Static resources are ignored
-    }
-
-    @Override
-    public boolean isAccessGranted(UI ui, String beanName) {
-        /*Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null) {
-            if (beanName.equals(StockInfoView.VIEW_NAME)) {
-                return authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_" + config.getDefaultRole()));
-            }
-        }
-        return false;*/
-       return true;
     }
 
 	@Override

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!--/* 
+ Copyright (c) 2016 Dominique Lopes.
+ All rights reserved. 
+
+ This Source Code Form is subject to the terms of the Mozilla Public 
+ License, v. 2.0. If a copy of the MPL was not distributed with this
+ file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+ Contributors:
+     Dominique Lopes - initial API and implementation
+*/-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Stock Facilitator: Error</title>
+        <meta charset="utf-8" />
+	</head>
+    <body>
+        <h1>Ooops</h1>
+  
+  	<p>
+  		<span>An error occured. Please contact your administrator to check the logs and come back later. Thanks!</span>
+  	</p>
+
+    </body>
+</html>

@@ -3,17 +3,22 @@ package de.dlopes.stocks.facilitator.ui.views;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 
-import com.vaadin.data.Container;
-import com.vaadin.data.Item;
-import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.addon.jpacontainer.JPAContainer;
+import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.themes.ValoTheme;
 
 import de.dlopes.stocks.facilitator.config.ConfigurationSettings;
 import de.dlopes.stocks.facilitator.data.StockInfo;
@@ -26,60 +31,82 @@ public class HomeView extends VerticalLayout implements View {
     public static final String VIEW_NAME = "home";
 
     private static final long serialVersionUID = -6819028369685823590L;
-
+    
     @Autowired
     private ConfigurationSettings cs;
 
     @Autowired
 	private StockInfoRepository siRepo;
 
-    private Table table;
+    @Autowired
+    private EntityManager em;
 
+    private HorizontalLayout hints;
+    private Table table;
+    private JPAContainer<StockInfo> stockinfo;
+    
+    /**
+     * build the view with a basic setup of the view components
+     */
     @PostConstruct
     public void init() {
-        System.out.println("init() invoked");
         setMargin(true);
         
-        table = new Table("Stock Info view:");
-		table.setSizeFull();
-		        
-		// Define columns for the built-in container
-        table.addContainerProperty("Name", String.class, null);
-        table.addContainerProperty("WKN",  String.class, null);
-        table.addContainerProperty("Bid",  Double.class, null);
-        table.addContainerProperty("Ask",  Double.class, null);
-        
-		table.setVisibleColumns(new Object[] { "Name", "WKN", "Bid", "Ask"}); 
+        hints = new HorizontalLayout();
+        Label label = new Label("Stock info not loaded yet. Click here to refresh stock information:");
+	    Button link = new Button("Load", event -> {
+	        loadStockInfo();
+	    });
+	    link.addStyleName(ValoTheme.BUTTON_LINK);
+	    hints.addComponent(label);
+	    hints.addComponent(link);
+	    addComponent(hints);
+	    
+	    // Create a persistent stock info container
+        stockinfo = JPAContainerFactory.make(StockInfo.class, em);
+        stockinfo.sort(new String[]{"name", "price"}, new boolean[]{true, true});
 		
-		StockDataCollector dataCollector = cs.getDataCollector();
-		List<StockInfo> siList = dataCollector.getData();
-		
-		// save and load data to/from database
-        siRepo.save(siList);
-		siRepo.flush();
-		siList = siRepo.findAll();
-		
-		// add data as rows into table structure
-		for (StockInfo si : siList) {
-		  // Create the table row.
-          table.addItem(new Object[] {
-                si.getId(), 
-                si.getName(), 
-                si.getWKN(), 
-                si.getBid(), 
-                si.getAsk()}, null);
-		}
+		// bind it to a table
+		table = new Table("Stock Info view:", stockinfo);
+		table.setVisibleColumns(new Object[] { "id", "name", "WKN", "ISIN", "price", "bid", "ask", "changePercentage", "changeAbsolute", "time"});
+	    table.setSizeFull();
+		table.setVisible(false);
 
-		// Show exactly the currently contained rows (items)
-        table.setPageLength(table.size());
-		
+		// add the table to the view
 		addComponent(table);
         
     }
 
+    /**
+     * initialize the view according to the 
+     */
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
-        System.out.println("enter() invoked");
-        
+        if (!CollectionUtils.isEmpty(siRepo.findAll())) {
+		    loadStockInfo();
+		}
     }
+
+    /*
+     * load the stock information from our services
+     */
+    protected void loadStockInfo() {
+        
+        StockDataCollector dataCollector = cs.getDataCollector();
+	    List<StockInfo> siList = dataCollector.getData();
+	
+		// save and load data to/from database via Spring Data JPA repository
+        siRepo.save(siList);
+		siRepo.flush();
+
+		// Show exactly the currently contained rows (items)
+        stockinfo.refresh();
+        table.refreshRowCache();
+        table.setPageLength(siList.size());
+        
+        // update the view to show the table instead of the "load data" hint and link
+        table.setVisible(true);
+        hints.setVisible(false);
+    }
+
 }

@@ -11,18 +11,23 @@
  *******************************************************************************/
 package de.dlopes.stocks.facilitator.config;
 
+import java.io.Serializable;
+
+import lombok.Data;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import de.dlopes.stocks.facilitator.services.HTMLFileExtractor;
 import de.dlopes.stocks.facilitator.services.StockDataCollector;
-import lombok.Data;
 
 @Data
 @Component
 @ConfigurationProperties(prefix="config")
-public class ConfigurationSettings {
+public class ConfigurationSettings implements Serializable {
+
+    private static final long serialVersionUID = -6219024369615821590L;
 
 	// member varialbles are automatically bound to application.yaml config due to
 	// @ConfigurationProperties annotation of the class
