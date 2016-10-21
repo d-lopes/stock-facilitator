@@ -33,13 +33,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 				// allow access to styles, images and the index page to everybody
-				.antMatchers("/css/**", "/img/**", "/index.html").permitAll()
+				.antMatchers("/resources/**", "/index.html").permitAll()
 				// restrict secured area to users with a certain role
 				.antMatchers("/secured/**").hasRole(config.getDefaultRole())			
 				.and()	
 			.formLogin()
 				// set login and logout page
-				.loginPage("/login").failureUrl("/login-error");	
+				.loginPage("/login").failureUrl("/login?loginError=true");	
 	}
 
 	@Autowired

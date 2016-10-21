@@ -41,6 +41,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
+			<scope>compile</scope>
 		</dependency>
 
 		<!-- spring boot starter kit for web -->
@@ -92,6 +93,23 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
+
+        <!-- Dojo Toolkit (+ Spring JS for better integration):
+             
+             The Dojo Toolkit is currently not obtainable via maven central repo. 
+             Thus dependency was downloaded directly from http://dojotoolkit.org, 
+             packaged as JAR and places in the /src/main/webapp/WEB-INF/lib directory
+             
+        <dependency>
+            <groupId>org.dojotoolkit</groupId>
+            <artifactId>dojo</artifactId>
+            <version>1.11.2</version>
+        </dependency> -->
+        <dependency>
+            <groupId>org.springframework.webflow</groupId>
+            <artifactId>spring-js</artifactId>
+            <version>2.4.4.RELEASE</version>
+        </dependency>
 
 		<!-- Spring Security -->
 		<dependency>
@@ -210,7 +228,7 @@
 			    </executions>
 			</plugin>
 		</plugins>
-	</build>
+	</build>    
 
 	<url>https://github.com/d-lopes/stock-facilitator</url>
 </project>

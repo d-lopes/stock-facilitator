@@ -15,6 +15,15 @@
 <head>
 <title>Stock Facilitator: Overview</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <!-- Dojo/Dijit dependencies and Spring integration: 
+             these styles and scripts are served from spring-js-resources-{ver}.jar -->
+        <link rel="stylesheet" type="text/css" href="#" th:href="@{/resources/dijit/themes/tundra/tundra.css}" />
+        
+        <script type="text/javascript" src="#" th:src="@{/resources/dojo/dojo.js}"></script>
+        <script type="text/javascript" src="#" th:src="@{/resources/spring/Spring.js}"></script>
+        <script type="text/javascript" src="#" th:src="@{/resources/spring/Spring-Dojo.js}"></script>
+        
 </head>
 <body>
 

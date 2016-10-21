@@ -14,19 +14,68 @@
     <head>
         <title>Stock Facilitator: Login</title>
         <meta charset="utf-8" />
-        <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}" />
+        
+        <!-- Dojo/Dijit dependencies and Spring integration: 
+         these styles and scripts are served from spring-js-resources-{ver}.jar -->
+        <link rel="stylesheet" type="text/css" href="#" th:href="@{/resources/dijit/themes/tundra/tundra.css}" />
+        
+        <script type="text/javascript" src="#" th:src="@{/resources/dojo/dojo.js}"></script>
+        <script type="text/javascript" src="#" th:src="@{/resources/spring/Spring.js}"></script>
+        <script type="text/javascript" src="#" th:src="@{/resources/spring/Spring-Dojo.js}"></script>
+        
 	</head>
     <body>
         <h1>Login page</h1>
         <p>Example user: user / password</p>
         <p th:if="${loginError}" class="error">Wrong user or password</p>
         <form th:action="@{/login}" method="post">
+            <p>
             <label for="username">Username</label>:
-            <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
+            <input id="username" type="text" name="username" autofocus="autofocus" />
+            <script type="text/javascript">
+                // <![CDATA[
+                    Spring.addDecoration(new Spring.ElementDecoration({
+                        elementId : "username",
+                        widgetType : "dijit.form.ValidationTextBox",
+                        widgetAttrs : { required : true }}));
+                // ]]>
+            </script>
+            </p>
+            
+            <p>
             <label for="password">Password</label>:
-            <input type="password" id="password" name="password" /> <br />
-            <input type="submit" value="Log in" />
+            <input id="password" type="password" name="password" /> <br />
+            <script type="text/javascript">
+                // <![CDATA[
+                    Spring.addDecoration(new Spring.ElementDecoration({
+                        elementId : "password",
+                        widgetType : "dijit.form.ValidationTextBox",
+                        widgetAttrs : { required : true }}));
+                // ]]>
+            </script>
+            </p>
+            
+            <p>
+            <input id="remember_me" type="checkbox" name="_spring_security_remember_me" />
+            <label for="remember_me">remember me</label>    
+            <script type="text/javascript">
+                // <![CDATA[
+                    Spring.addDecoration(new Spring.ElementDecoration({
+                        elementId : "remember_me",
+                        widgetType : "dijit.form.CheckBox"}));
+                // ]]>
+            </script>
+            </p>
+            
+            <p>
+            <button id="submit" type="submit">Login</button>
+                <script type="text/javascript">
+                    Spring.addDecoration(
+                            new Spring.ValidateAllDecoration({event : 'onclick', elementId : 'submit'}));
+                </script>
+            </p>
+            
         </form>
-        <p><a href="/index" th:href="@{/index}">Back to home page</a></p>
+        <p><a href="../../webapp/index.html" th:href="@{/index.html}">Back to home page</a></p>
     </body>
 </html>
