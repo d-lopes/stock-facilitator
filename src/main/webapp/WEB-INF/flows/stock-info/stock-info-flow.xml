@@ -18,23 +18,17 @@
 
 	<!-- only registered users can access this flow -->
 	<secured attributes="ROLE_USER" />
-
-	<on-start>
-		<evaluate expression="stockInfoService.findAll()" result="flowScope.stocks" />
-	</on-start>
-
-	<decision-state id="isStockInfoLoaded">
-		<if test="serviceUtil.notEmpty(flowScope.stocks)" then="viewStockInfo" else="loadStockInfo" />
-	</decision-state>
-
-	<view-state id="loadStockInfo">
-		<transition on="load" to="viewStockInfo">
-			<evaluate expression="stockInfoService.loadAll()" result="flowScope.stocks" />
- 		</transition>
-	</view-state>
-
+	
+	<var name="addStocksForm" class="de.dlopes.stocks.facilitator.ui.forms.AddStocksForm"/>
+	
 	<view-state id="viewStockInfo">
-		<transition on="end" to="finish" />
+	    <on-render>
+    		<evaluate expression="stockInfoService.findAll()" result="flowScope.stocks" />
+    	</on-render>
+		<transition on="load" to="viewStockInfo">
+			<evaluate expression="stockInfoService.addStocks(addStocksForm)" />
+ 		</transition>
+ 		<transition on="end" to="finish" />
 	</view-state>
 
 	<end-state id="finish" />

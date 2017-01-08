@@ -22,43 +22,58 @@
 
 	<ui:define name="content">
 
-		<p>The following table lists all loaded stock information:</p>
-		
-		<p:dataTable id="stocks" var="si" value="#{stocks}">
-			<!-- later:
-			paginator="true" dynamic="true" rows="#{stocks.pageSize}" page="#{stocks.currentPage}" lazy="true"> -->
+        <p:panel id="addStocks" header="Add stocks" toggleable="true" toggleSpeed="100">
+    		<h:form>
+    			<p:messages globalOnly="true" />
+    			<h:panelGrid columns="3">
+    				<h:outputLabel for="url">URL: </h:outputLabel>
+    				<h:inputText id="url" value="#{addStocksForm.url}" />
+    			    <p:button id="load" value="Load" action="load" />
+    			</h:panelGrid>
+    		</h:form>			  
+    	</p:panel>
 
-			<f:facet name="header">Index: DAX</f:facet>
-			<p:column sortBy="#{si.name}">
-				<f:facet name="header">Name</f:facet>
-			#{si.name}
-			</p:column>
-			<p:column>
-				<f:facet name="header">WKN/ISIN</f:facet>
-			#{si.WKN}/#{si.ISIN}
-			</p:column>
-			<p:column>
-				<f:facet name="header">Price</f:facet>
-			#{si.price}
-			</p:column>
-			<p:column>
-				<f:facet name="header">Bid</f:facet>
-			#{si.bid}
-			</p:column>
-			<p:column>
-				<f:facet name="header">Ask</f:facet>
-			#{si.ask}
-			</p:column>
-			<p:column>
-				<f:facet name="header">Change (abs./%)</f:facet>
-			#{si.changeAbsolute}/#{si.changePercentage}%
-			</p:column>
-			<p:column>
-				<f:facet name="header">Last update</f:facet>
-			#{si.time}
-			</p:column>
-		</p:dataTable>
-
-	</ui:define>
+        <p:panel id="stocksPanel" header="Listing of stocks" toggleable="true" toggleSpeed="100" style="margin-top: 10px">
+            <h:outputText value="No stocks found" rendered="#{empty stocks}"/>
+            <p:outputPanel id="stocksContent"  rendered="#{not empty stocks}">
+    		  <h:outputText value="The following table lists all loaded stock information:" />
+        	  <p:dataTable id="stocks" var="si" value="#{stocks}">
+        			<!-- later:
+        			paginator="true" dynamic="true" rows="#{stocks.pageSize}" page="#{stocks.currentPage}" lazy="true"> -->
+        
+        			<f:facet name="header">Index: DAX</f:facet>
+        			<p:column sortBy="#{si.name}">
+        				<f:facet name="header">Name</f:facet>
+        			#{si.name}
+        			</p:column>
+        			<p:column>
+        				<f:facet name="header">WKN/ISIN</f:facet>
+        			#{si.WKN}/#{si.ISIN}
+        			</p:column>
+        			<p:column>
+        				<f:facet name="header">Price</f:facet>
+        			#{si.price}
+        			</p:column>
+        			<p:column>
+        				<f:facet name="header">Bid</f:facet>
+        			#{si.bid}
+        			</p:column>
+        			<p:column>
+        				<f:facet name="header">Ask</f:facet>
+        			#{si.ask}
+        			</p:column>
+        			<p:column>
+        				<f:facet name="header">Change (abs./%)</f:facet>
+        			#{si.changeAbsolute}/#{si.changePercentage}%
+        			</p:column>
+        			<p:column>
+        				<f:facet name="header">Last update</f:facet>
+        			#{si.time}
+        			</p:column>
+        		</p:dataTable>
+              </p:outputPanel>
+    	   </p:panel>		
+            
+    	</ui:define>
 
 </ui:composition>

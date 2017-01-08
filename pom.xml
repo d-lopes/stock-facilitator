@@ -17,7 +17,7 @@
 
 	<groupId>de.dlopes.stocks</groupId>
 	<artifactId>facilitator</artifactId>
-	<version>0.0.5-SNAPSHOT</version>
+	<version>0.0.6-SNAPSHOT</version>
 	<packaging>war</packaging>
 
 	<name>stock-facilitator</name>
@@ -136,6 +136,14 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
+		
+		<!-- yahoo finance API to request financial info for stocks -->
+		<dependency>
+            <groupId>com.yahoofinance-api</groupId>
+            <artifactId>YahooFinanceAPI</artifactId>
+            <version>3.5.0</version>
+        </dependency>
+
 		
 		<!-- Logging -->
 		<dependency>

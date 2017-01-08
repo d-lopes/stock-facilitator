@@ -13,13 +13,11 @@ package de.dlopes.stocks.facilitator.services;
 
 import java.util.List;
 
-import de.dlopes.stocks.facilitator.data.StockInfo;
-import de.dlopes.stocks.facilitator.ui.forms.AddStocksForm;
 
-public interface StockInfoService {
+public interface ISINExtractor {
 
-	public List<StockInfo> findAll();
+	public boolean isApplicable(String url);
 	
-	public void addStocks(AddStocksForm addStocksForm);
-
+	public List<String> getISINs(String url);
+	
 }

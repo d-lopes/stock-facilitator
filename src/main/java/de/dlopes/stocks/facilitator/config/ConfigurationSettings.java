@@ -15,8 +15,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
-import de.dlopes.stocks.facilitator.services.HTMLFileExtractor;
-import de.dlopes.stocks.facilitator.services.StockDataCollector;
+import de.dlopes.stocks.facilitator.services.FinanzenNetIndexHTMLISINExtractor;
+import de.dlopes.stocks.facilitator.services.ISINExtractor;
 import lombok.Data;
 
 @Data
@@ -24,17 +24,16 @@ import lombok.Data;
 @ConfigurationProperties(prefix="config")
 public class ConfigurationSettings {
 
-	// member varialbles are automatically bound to application.yaml config due to
+	// member variables are automatically bound to application.yaml config due to
 	// @ConfigurationProperties annotation of the class
-	private String url;
 	private String defaultUser;
 	private String defaultPassword;
 	private String defaultRole;
 	private String dispatcherServletCxtpth;
 		
 	@Bean
-	public StockDataCollector getDataCollector() {
-		return new HTMLFileExtractor(url);
+	public ISINExtractor getISINExtractor() {
+		return new FinanzenNetIndexHTMLISINExtractor();
 	}
 
 }
