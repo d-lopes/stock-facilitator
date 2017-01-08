@@ -91,6 +91,45 @@ public class YahooSymbolIsinMappingTest {
     }
     
     @Test
+    public void testConvertToMapWithoutMapping() {
+        
+        // test data is not given on purpose!
+       
+        // run the test:
+        Map<String,String> map = _classUnderTest.covertToMap(false);
+        
+        // assert there is only one value in the list
+        assertEquals("unexpected amount of results!", 0, map.size());
+        
+    }
+
+    
+    @Test
+    public void testConvertToMapWithISIN2Symbol() {
+        
+        // setup test data: 
+        //   ... "results":{"stock":
+        //                      [
+        //                          {"symbol":"DE0005785802","Isin":"FME.DE"},
+        //                          {"symbol":"DE000BAY0017","Isin":"BAYN.DE"},
+        //                      ]}}}        
+        createTestDataEntry("DE0005785802", "FME.DE");
+        createTestDataEntry("DE000BAY0017", "BAYN.DE");
+        
+        // run the test:
+        Map<String,String> map = _classUnderTest.covertToMap(false);
+        
+        // assert there is only one value in the list
+        assertEquals("unexpected amount of results!", 2, map.size());
+        
+        // assert only the mapping for the valid ISIN is in the list => that means the dummy ISIN was 
+        // neglected
+        assertEquals("Mapping for Symbol was not found in the result!", "FME.DE", map.get("DE0005785802"));
+        assertEquals("Mapping for Symbol was not found in the result!", "BAYN.DE", map.get("DE000BAY0017"));        
+        
+    }
+    
+    @Test
     public void testGetIsinsWithoutMapping() {
         
         // setup test data: 
