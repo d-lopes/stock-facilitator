@@ -26,9 +26,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import de.dlopes.stocks.facilitator.services.impl.FinanzenNetIndexHTMLExtractorImpl;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-public class FinanzenNetIndexHTMLISINExtractorTest {
+public class FinanzenNetIndexHTMLExtractorTest {
 	
 	// test isins: DAX
 	public static final List<String> DAX_TEST_ISINS = new ArrayList<String>();
@@ -43,7 +45,7 @@ public class FinanzenNetIndexHTMLISINExtractorTest {
         DAX_TEST_ISINS.add("DE0005439004");
         DAX_TEST_ISINS.add("DE0007100000");
         DAX_TEST_ISINS.add("DE0005140008");
-        DAX_TEST_ISINS.add("DE0005810055");
+        DAX_TEST_ISINS.add("DE000A2AA253");
         DAX_TEST_ISINS.add("DE0008232125");
         DAX_TEST_ISINS.add("DE0005552004");
         DAX_TEST_ISINS.add("DE0005557508");
@@ -67,11 +69,11 @@ public class FinanzenNetIndexHTMLISINExtractorTest {
 
 	private static final String URL = "file://./src/test/resources/test.html";
 	        
-	private static FinanzenNetIndexHTMLISINExtractor _classUnderTest;
+	private static FinanzenNetIndexHTMLExtractorImpl _classUnderTest;
 	
 	@BeforeClass
 	public static void setup() {
-		_classUnderTest = new FinanzenNetIndexHTMLISINExtractor();
+		_classUnderTest = new FinanzenNetIndexHTMLExtractorImpl();
 	}
 	
 	@Test
@@ -87,17 +89,17 @@ public class FinanzenNetIndexHTMLISINExtractorTest {
 
 	@Test
 	public void testIsApplicable() {
-	    String _url = FinanzenNetIndexHTMLISINExtractor.PREFIX + "/aksjdkjalsd";
+	    String _url = FinanzenNetIndexHTMLExtractorImpl.PREFIX + "/aksjdkjalsd";
 		assertTrue("URL '" + _url + "'is appliable", _classUnderTest.isApplicable(_url));	    
     }
 	
 	@Test
 	public void testGetISINs() {
 		
-		List<String> isins = _classUnderTest.getISINs(URL);
+		List<String> isins = _classUnderTest.getFinanceData(URL);
 		assertEquals("unexpected number of stocks", DAX_TEST_ISINS.size(), isins.size());
 		
-		String strArr = StringUtils.collectionToCommaDelimitedString(isins);
+		String strArr = "[" + StringUtils.collectionToCommaDelimitedString(isins) + "]";
 		
 		for (String isin : DAX_TEST_ISINS) {
 			

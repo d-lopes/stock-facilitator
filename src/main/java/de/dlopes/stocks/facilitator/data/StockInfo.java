@@ -13,16 +13,18 @@ package de.dlopes.stocks.facilitator.data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalTime;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 import lombok.Data;
 
@@ -40,6 +42,7 @@ public class StockInfo implements Serializable {
 	// private String WKN;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 
 	// ISIN will serve as unique ID througout the application
@@ -54,7 +57,7 @@ public class StockInfo implements Serializable {
 	private BigDecimal change;
     
     //private String index;	
-	//private LocalTime time;
+	private Timestamp lastChanged;
 	
 	@OneToMany(mappedBy="stock")
 	private List<StockID> extIDs;
@@ -64,9 +67,15 @@ public class StockInfo implements Serializable {
 
 
 /* constructors for safer management of one-to-many relationships */
+
+    public StockInfo() {
+	    this(null);
+	}
 	
 	public StockInfo(String isin) {
 	    this.isin = isin;		
+	    Date now = new Date();
+	    this.lastChanged = new Timestamp(now.getTime());
 	}
 	
 /*

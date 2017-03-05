@@ -14,10 +14,16 @@ package de.dlopes.stocks.facilitator.services;
 import java.util.List;
 
 
-public interface ISINExtractor {
+public interface FinanceDataExtractor {
+    
+    public static enum FinanceDataType{
+        YahooSymbol, ISIN
+    };
 
 	public boolean isApplicable(String url);
 	
-	public List<String> getISINs(String url);
+	public List<String> getFinanceData(String url, FinanceDataType dataType);	
+	
+	public List<String> getFinanceData(String url);
 	
 }

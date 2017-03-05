@@ -21,16 +21,23 @@
 	
 	<var name="addStocksForm" class="de.dlopes.stocks.facilitator.ui.forms.AddStocksForm"/>
 	
-	<view-state id="viewStockInfo">
-	    <on-render>
-    		<evaluate expression="stockInfoService.findAll()" result="flowScope.stocks" />
-    	</on-render>
-		<transition on="load" to="viewStockInfo">
+	<on-start>
+		<evaluate expression="stockInfoService.findAll()" result="flowScope.stocks" />
+	</on-start>
+	
+	<view-state id="loadStockInfo">	
+	    <transition on="load" to="viewStockInfo">
 			<evaluate expression="stockInfoService.addStocks(addStocksForm)" />
  		</transition>
- 		<transition on="end" to="finish" />
 	</view-state>
-
+	
+	<view-state id="viewStockInfo">
+	   <on-render>
+    		<evaluate expression="stockInfoService.findAll()" result="flowScope.stocks" />
+    	</on-render>
+	   <transition on="end" to="finish" />
+	</view-state>
+	
 	<end-state id="finish" />
 	
 </flow>

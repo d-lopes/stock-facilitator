@@ -19,7 +19,7 @@ public class StockID implements Serializable {
     
     private static final long serialVersionUID = 2754745868464626971L;
     
-    public enum PROVIDER { YAHOO };
+    public enum PROVIDER { YAHOO, WKN};
     
     @Id
 	@GeneratedValue

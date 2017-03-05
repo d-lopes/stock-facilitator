@@ -22,17 +22,6 @@
 
 	<ui:define name="content">
 
-        <p:panel id="addStocks" header="Add stocks" toggleable="true" toggleSpeed="100">
-    		<h:form>
-    			<p:messages globalOnly="true" />
-    			<h:panelGrid columns="3">
-    				<h:outputLabel for="url">URL: </h:outputLabel>
-    				<h:inputText id="url" value="#{addStocksForm.url}" />
-    			    <p:button id="load" value="Load" action="load" />
-    			</h:panelGrid>
-    		</h:form>			  
-    	</p:panel>
-
         <p:panel id="stocksPanel" header="Listing of stocks" toggleable="true" toggleSpeed="100" style="margin-top: 10px">
             <h:outputText value="No stocks found" rendered="#{empty stocks}"/>
             <p:outputPanel id="stocksContent"  rendered="#{not empty stocks}">
@@ -40,15 +29,15 @@
         	  <p:dataTable id="stocks" var="si" value="#{stocks}">
         			<!-- later:
         			paginator="true" dynamic="true" rows="#{stocks.pageSize}" page="#{stocks.currentPage}" lazy="true"> -->
-        
-        			<f:facet name="header">Index: DAX</f:facet>
+        			
+        			<f:facet name="header">Stocks</f:facet>
         			<p:column sortBy="#{si.name}">
         				<f:facet name="header">Name</f:facet>
         			#{si.name}
         			</p:column>
         			<p:column>
-        				<f:facet name="header">WKN/ISIN</f:facet>
-        			#{si.WKN}/#{si.ISIN}
+        				<f:facet name="header">ISIN</f:facet>
+        			#{si.isin}
         			</p:column>
         			<p:column>
         				<f:facet name="header">Price</f:facet>
@@ -64,11 +53,11 @@
         			</p:column>
         			<p:column>
         				<f:facet name="header">Change (abs./%)</f:facet>
-        			#{si.changeAbsolute}/#{si.changePercentage}%
+        			#{si.changeInPercent}%
         			</p:column>
         			<p:column>
         				<f:facet name="header">Last update</f:facet>
-        			#{si.time}
+        			#{si.lastChanged}
         			</p:column>
         		</p:dataTable>
               </p:outputPanel>

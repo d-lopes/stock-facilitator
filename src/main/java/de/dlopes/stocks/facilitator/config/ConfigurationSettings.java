@@ -11,18 +11,24 @@
  *******************************************************************************/
 package de.dlopes.stocks.facilitator.config;
 
+import java.io.Serializable;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
-import de.dlopes.stocks.facilitator.services.FinanzenNetIndexHTMLISINExtractor;
-import de.dlopes.stocks.facilitator.services.ISINExtractor;
+
+//import de.dlopes.stocks.facilitator.services.FinanzenNetIndexHTMLISINExtractorImpl;
+import de.dlopes.stocks.facilitator.services.FinanceDataExtractor;
+import de.dlopes.stocks.facilitator.services.impl.YahooFinanceComIndexHTMLExtractorImpl;
 import lombok.Data;
 
 @Data
 @Component
 @ConfigurationProperties(prefix="config")
-public class ConfigurationSettings {
+public class ConfigurationSettings implements Serializable {
+
+    public static final long serialVersionUID = 3754745864664622971L;
 
 	// member variables are automatically bound to application.yaml config due to
 	// @ConfigurationProperties annotation of the class
@@ -32,8 +38,9 @@ public class ConfigurationSettings {
 	private String dispatcherServletCxtpth;
 		
 	@Bean
-	public ISINExtractor getISINExtractor() {
-		return new FinanzenNetIndexHTMLISINExtractor();
+	public FinanceDataExtractor getFinanceDataExtractor() {
+		//return new FinanzenNetIndexHTMLISINExtractorImpl();
+		return new YahooFinanceComIndexHTMLExtractorImpl();
 	}
 
 }

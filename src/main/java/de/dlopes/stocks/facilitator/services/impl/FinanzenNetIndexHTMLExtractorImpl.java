@@ -9,7 +9,7 @@
  * Contributors:
  *     Dominique Lopes - initial API and implementation
  *******************************************************************************/
-package de.dlopes.stocks.facilitator.services;
+package de.dlopes.stocks.facilitator.services.impl;
 
 
 import java.io.File;
@@ -24,10 +24,13 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.util.StringUtils;
 
-public class FinanzenNetIndexHTMLISINExtractor implements ISINExtractor {
+import de.dlopes.stocks.facilitator.services.FinanceDataExtractor;
+
+public class FinanzenNetIndexHTMLExtractorImpl implements FinanceDataExtractor {
 
     public static final String PREFIX = "http://www.finanzen.net/index/";
 
+    @Override
     public boolean isApplicable(String url) {
         
         // guard: ensure an URL is given
@@ -45,7 +48,13 @@ public class FinanzenNetIndexHTMLISINExtractor implements ISINExtractor {
 		return true;
     }
     
-	public List<String> getISINs(String url) {
+    @Override
+	public List<String> getFinanceData(String url) {
+	    return getFinanceData(url, FinanceDataType.ISIN);
+    }
+    
+    @Override
+	public List<String> getFinanceData(String url, FinanceDataType dataType) {
 
 		List<String> list = new ArrayList<String>();
 		
@@ -60,20 +69,19 @@ public class FinanzenNetIndexHTMLISINExtractor implements ISINExtractor {
 				doc = Jsoup.parse(input, 30000);
 			}
 			
-			String index = doc.body().select("div#mainWrapper > div.main h2 > a").text();
-			Elements elements = doc.body().select("form#realtime_chart_list > table tr"); 
+			//String index = doc.body().select("div#mainWrapper > div.main h1 > a").text();
+			Elements elements = doc.body().select("#fragIndexBarView > table tr"); 
 			
 			for (Element e : elements) {
-				String text = e.select("td > a.content_one_line").text();
+				String text = e.select("td > div").text();
 				
-				// Guard: move on when the text is empty or represents the whole index
-				if (StringUtils.isEmpty(text) || index.equals(text)) {
+				// Guard: move on when the text is empty
+				if (StringUtils.isEmpty(text)) {
 					continue;
 				}
 				
-				Element e2 = e.select("td > div[field='bid']").first();
-				text = e2.attr("item");
-				list.add(convert2ISIN(text));
+				text = StringUtils.trimAllWhitespace(text);
+				list.add(text);
 		
 			}
 			
@@ -83,17 +91,5 @@ public class FinanzenNetIndexHTMLISINExtractor implements ISINExtractor {
 		
 		return list;
 	}
-
-	private String convert2ISIN(String input) {
-		String res = null;
-		try {
-			res = input.substring(input.length() - 12);
-		} catch (IndexOutOfBoundsException e) {
-			// do nothing -> we just want to be a little more robust
-		}
-		
-		return res;
-	}
-
 
 }

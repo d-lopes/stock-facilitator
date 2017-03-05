@@ -11,7 +11,6 @@
 ###############################################################################
 config:
   dispatcherServletCxtpth: /site
-  url: http://www.finanzen.net/aktien/DAX-Realtimekurse
   defaultUser: user
   defaultPassword: password
   defaultRole: USER

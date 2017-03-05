@@ -17,16 +17,67 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/layouts/standard.xhtml">
-	
-	<ui:define name="title">Load Stock Info</ui:define>
+
+	<ui:define name="title">Overview</ui:define>
 
 	<ui:define name="content">
 
-		Stock info not loaded yet. 
-		Click here to refresh stock information: 
-		<h:form>
-			<p:commandLink action="load" value="Load" />
-		</h:form>
-	</ui:define>
+        <p:panel id="addStocks" header="Add stocks" toggleable="true" toggleSpeed="100">
+    		<h:form>
+    			<p:messages id="messages" for="messages" />
+    			<h:panelGrid columns="2">
+    				<p:outputLabel for="url" value="URL" />
+    				<h:inputText id="url" size="50" value="#{addStocksForm.url}" 
+    				        validator="#{addStocksForm.validateInput}" validatorMessage="addStocksFormUrlNotApplicable" />
+    			    <p:outputLabel for="yahooSymbols" value="Yahoo Symbols" />
+    				<h:inputTextarea id="yahooSymbols" size="50" value="#{addStocksForm.listOfYahooSymbols}" 
+    				        validator="#{addStocksForm.validateInput}" validatorMessage="addStocksFormNoYahooSymbolsProvided" />
+    			    <p:commandButton value="Load" action="load" />
+    			</h:panelGrid>
+    		</h:form>			  
+    	</p:panel>
+
+        <p:panel id="stocksPanel" header="Listing of stocks" toggleable="true" toggleSpeed="100" style="margin-top: 10px">
+            <h:outputText value="No stocks found" rendered="#{empty stocks}"/>
+            <p:outputPanel id="stocksContent"  rendered="#{not empty stocks}">
+    		  <h:outputText value="The following table lists all loaded stock information:" />
+        	  <p:dataTable id="stocks" var="si" value="#{stocks}">
+        			<!-- later:
+        			paginator="true" dynamic="true" rows="#{stocks.pageSize}" page="#{stocks.currentPage}" lazy="true"> -->
+        
+        			<f:facet name="header">Stocks</f:facet>
+        			<p:column sortBy="#{si.name}">
+        				<f:facet name="header">Name</f:facet>
+        			#{si.name}
+        			</p:column>
+        			<p:column>
+        				<f:facet name="header">ISIN</f:facet>
+        			#{si.ISIN}
+        			</p:column>
+        			<p:column>
+        				<f:facet name="header">Price</f:facet>
+        			#{si.price}
+        			</p:column>
+        			<p:column>
+        				<f:facet name="header">Bid</f:facet>
+        			#{si.bid}
+        			</p:column>
+        			<p:column>
+        				<f:facet name="header">Ask</f:facet>
+        			#{si.ask}
+        			</p:column>
+        			<p:column>
+        				<f:facet name="header">Change (abs./%)</f:facet>
+        			#{si.changeAbsolute}/#{si.changePercentage}%
+        			</p:column>
+        			<p:column>
+        				<f:facet name="header">Last update</f:facet>
+        			#{si.time}
+        			</p:column>
+        		</p:dataTable>
+              </p:outputPanel>
+    	   </p:panel>		
+            
+    	</ui:define>
 
 </ui:composition>

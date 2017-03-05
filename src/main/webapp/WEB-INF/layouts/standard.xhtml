@@ -22,13 +22,14 @@
 </h:head>
 <h:body>
 	<div>
-		<sec:authorize ifAnyGranted="ROLE_USER">
+		<sec:authorize areAnyGranted="ROLE_USER">
 			<p:menubar>
 				<f:facet name="options">
 			       Welcome, ${currentUser.name} | <a href="logout">Logout</a>
 		        </f:facet>
 			</p:menubar>
 		</sec:authorize>
+		<p:growl id="growl" for="notifications" />
 	</div>
 	<div>
 		<ui:insert name="content"/>

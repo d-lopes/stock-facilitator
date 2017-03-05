@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import lombok.Getter;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -15,6 +18,9 @@ public class YahooSymbolIsinMapping {
     // due to the fact that we always have to request at least to mappings, we have to define a known
     // dummy value which we can neglect again
     public static final String DUMMY_ISIN = "XX0000000000";
+
+    // Define the logger object for this class
+    Logger log = LoggerFactory.getLogger(YahooSymbolIsinMapping.class);
 
     @Getter
     public class Query {
@@ -70,6 +76,7 @@ public class YahooSymbolIsinMapping {
         // avoid NPE when convertToMap is used although query and query-results were not populated 
         // with JSON result 
         if (query == null || query.results == null) {
+            log.debug("no results received");
             return result;
         }
         
@@ -77,6 +84,7 @@ public class YahooSymbolIsinMapping {
         // query-results from above
         List<Map<String,String>> stocks = query.results.get("stock");
         if (stocks == null) {
+            log.debug("no stocks contained in results");
             return result;
         }
         
@@ -92,10 +100,12 @@ public class YahooSymbolIsinMapping {
             // "wrong" way:
             String symbol = s.get("Isin");
             String isin = s.get("symbol");
+            log.debug("Aahoo Symbol: {} -> ISIN: {}", symbol, isin);
             
             // due to the fact that we always have to request at least to mappings, there can be a dummy
             // value in the list which must not be considered further
             if (DUMMY_ISIN.equals(isin)) {
+                log.debug("skipping dummy value");
                 continue;
             }
             
@@ -109,12 +119,14 @@ public class YahooSymbolIsinMapping {
             // that has initially invoked the request for ISIN to symbol mappings, can ask for the 
             // missing ISINs again.
             if (symbol == null) {
+                log.debug("no ISIN received! Adding to list of missing ISINs");
                 isinsWithoutMapping.add(isin);
                 continue;
             } 
             
-            // currently, it is not entirely clear which was it is better
+            // currently, it is not entirely clear which way it is better
             // the direction of the mapping can be controlled with a param
+            log.debug("Yahoo Symbol -> ISIN mapping stored");
             if (symbol2isin) {
                 result.put(symbol, isin);    
             } else {

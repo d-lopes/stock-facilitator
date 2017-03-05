@@ -2,19 +2,16 @@ package de.dlopes.stocks.facilitator.services;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.util.CollectionUtils;
 
 import yahoofinance.Stock;
 import yahoofinance.quotes.stock.StockQuote;
@@ -26,8 +23,12 @@ import de.dlopes.stocks.facilitator.services.impl.util.SFApplicationException;
 @SpringBootTest
 public class YahooFinanceDataCollectorTest {
     
-    public static final List<String> TEST_ISINS = FinanzenNetIndexHTMLISINExtractorTest.DAX_TEST_ISINS;
+    public static final List<String> TEST_ISINS = FinanzenNetIndexHTMLExtractorTest.DAX_TEST_ISINS;
 
+    
+    /*
+     * removed from YahooFinanceDataCollectorImpl class due to usablility issues
+     *
     @Test
     public void testGetSymbol4ISIN() {
                 
@@ -60,7 +61,8 @@ public class YahooFinanceDataCollectorTest {
                                 CollectionUtils.contains(TEST_ISINS.iterator(), isin));            
         }
     }    
-    
+    */
+   
     @Test
     public void testRequestStocks() {
         
@@ -72,7 +74,7 @@ public class YahooFinanceDataCollectorTest {
             "DEUTSCHE BANK AG NA O.N." 
         };
         
-        Set<String> symbols = new HashSet<String>();
+        List<String> symbols = new ArrayList<String>();
         for (int i = 0; i < syms.length; i++) {
             symbols.add(syms[i]);
         }
