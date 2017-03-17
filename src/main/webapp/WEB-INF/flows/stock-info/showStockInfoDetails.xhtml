@@ -1,0 +1,35 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--/* 
+ Copyright (c) 2016 Dominique Lopes.
+ All rights reserved. 
+
+ This Source Code Form is subject to the terms of the Mozilla Public 
+ License, v. 2.0. If a copy of the MPL was not distributed with this
+ file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+ Contributors:
+     Dominique Lopes - initial API and implementation
+*/-->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/layouts/standard.xhtml">
+
+	<ui:define name="title">Detail</ui:define>
+
+	<ui:define name="content">
+        <h:form>
+            <p:panel header="Stock: #{stock.name}">
+                <h:panelGrid columns="1">
+                    <h:outputText value="ISIN: #{stock.isin}" />
+                    <h:outputText value="Last Changed: #{stock.lastChanged}" />            
+                    <p:commandButton value="back" action="back" />
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

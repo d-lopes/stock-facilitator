@@ -32,10 +32,15 @@
 	</view-state>
 	
 	<view-state id="viewStockInfo">
-	   <on-render>
-    		<evaluate expression="stockInfoService.findAll()" result="flowScope.stocks" />
-    	</on-render>
+        <var name="stocks" class="de.dlopes.stocks.facilitator.services.impl.util.LazyStockDataModel"/>
+       <transition on="select" to="showStockInfoDetails">
+            <set name="flowScope.stock" value="stocks.selected" />
+       </transition>
 	   <transition on="end" to="finish" />
+	</view-state>
+
+	<view-state id="showStockInfoDetails">
+	   <transition on="back" to="viewStockInfo" />
 	</view-state>
 	
 	<end-state id="finish" />

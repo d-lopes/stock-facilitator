@@ -17,7 +17,7 @@ import java.util.List;
 public interface FinanceDataExtractor {
     
     public static enum FinanceDataType{
-        YahooSymbol, ISIN
+        YahooSymbol, ISIN, WKN
     };
 
 	public boolean isApplicable(String url);

@@ -147,7 +147,12 @@ public class StockInfoServiceImpl implements StockInfoService {
 			Stock stock = stocks.get(symbol);	
 			// we need a unique String -> for now we just generate one 
 			// -> in the future we want to replace this with proper data
-			String isin = RandomStringUtils.randomAlphabetic(12); //symbols2isins.get(symbol);
+			FinanznachrichtenOrderbuchExtractorImpl foei = new FinanznachrichtenOrderbuchExtractorImpl();
+			List<String> isins = foei.getFinanceData(FinanznachrichtenOrderbuchExtractorImpl.PREFIX + symbol.split("\\.")[0] + ".htm");
+			String isin = null;			
+			if (isins != null && isins.size() > 0) {
+			    isin = isins.get(0);
+			}
 	    
 	        log.debug("creating StockInfo record for ISIN '" + isin + "'");			
 		

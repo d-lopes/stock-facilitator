@@ -21,48 +21,45 @@
 	<ui:define name="title">Overview</ui:define>
 
 	<ui:define name="content">
-
-        <p:panel id="stocksPanel" header="Listing of stocks" toggleable="true" toggleSpeed="100" style="margin-top: 10px">
-            <h:outputText value="No stocks found" rendered="#{empty stocks}"/>
-            <p:outputPanel id="stocksContent"  rendered="#{not empty stocks}">
-    		  <h:outputText value="The following table lists all loaded stock information:" />
-        	  <p:dataTable id="stocks" var="si" value="#{stocks}">
-        			<!-- later:
-        			paginator="true" dynamic="true" rows="#{stocks.pageSize}" page="#{stocks.currentPage}" lazy="true"> -->
-        			
-        			<f:facet name="header">Stocks</f:facet>
-        			<p:column sortBy="#{si.name}">
-        				<f:facet name="header">Name</f:facet>
-        			#{si.name}
-        			</p:column>
-        			<p:column>
-        				<f:facet name="header">ISIN</f:facet>
-        			#{si.isin}
-        			</p:column>
-        			<p:column>
-        				<f:facet name="header">Price</f:facet>
-        			#{si.price}
-        			</p:column>
-        			<p:column>
-        				<f:facet name="header">Bid</f:facet>
-        			#{si.bid}
-        			</p:column>
-        			<p:column>
-        				<f:facet name="header">Ask</f:facet>
-        			#{si.ask}
-        			</p:column>
-        			<p:column>
-        				<f:facet name="header">Change (abs./%)</f:facet>
-        			#{si.changeInPercent}%
-        			</p:column>
-        			<p:column>
-        				<f:facet name="header">Last update</f:facet>
-        			#{si.lastChanged}
-        			</p:column>
-        		</p:dataTable>
-              </p:outputPanel>
-    	   </p:panel>		
-            
+        <h:form>
+            <p:panel id="stocksPanel" header="Listing of stocks" toggleable="true" toggleSpeed="100" style="margin-top: 10px">
+                <h:outputText value="No stocks found" rendered="#{empty stocks}"/>
+                <p:outputPanel id="stocksContent"  rendered="#{not empty stocks}">
+        		  <h:outputText value="The following table lists all loaded stock information:" />
+            	  <p:dataTable id="stocks" var="si" value="#{stocks}"
+            		  paginator="true" dynamic="true" rows="#{stocks.pageSize}" page="#{stocks.currentPage}" lazy="true">
+            			
+            			<f:facet name="header">Stocks</f:facet>
+            			<p:column>
+                			<f:facet name="header">Action</f:facet>
+                			<p:commandButton id="viewStockDetails" value="View" action="select" icon="ui-icon-search">
+                				<f:setPropertyActionListener value="#{si}" target="#{stocks.selected}" />
+                			</p:commandButton>
+                		</p:column>
+            			<p:column> <!-- sortBy="#{si.name}"> -->
+            				<f:facet name="header">Name</f:facet>
+            			#{si.name}
+            			</p:column>
+            			<p:column>
+            				<f:facet name="header">ISIN</f:facet>
+            			#{si.isin}
+            			</p:column>
+            			<p:column>
+            				<f:facet name="header">Price</f:facet>
+            			#{si.price}
+            			</p:column>
+            			<p:column>
+            				<f:facet name="header">Change (abs./%)</f:facet>
+            			#{si.change}/#{si.changeInPercent}%
+            			</p:column>
+            			<p:column>
+            				<f:facet name="header">Last update</f:facet>
+            			#{si.lastChanged}
+            			</p:column>
+            		</p:dataTable>
+                  </p:outputPanel>
+        	   </p:panel>		
+            </h:form>
     	</ui:define>
 
 </ui:composition>
