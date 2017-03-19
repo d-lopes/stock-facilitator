@@ -11,6 +11,7 @@
  *******************************************************************************/
 package de.dlopes.stocks.facilitator.services.impl;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +41,9 @@ import de.dlopes.stocks.facilitator.services.impl.util.SFApplicationException;
 import de.dlopes.stocks.facilitator.ui.forms.AddStocksForm;
 
 @Service("stockInfoService")
-public class StockInfoServiceImpl implements StockInfoService {
+public class StockInfoServiceImpl implements StockInfoService, Serializable {
+
+    private static final long serialVersionUID = -4432833131963935623L;
 
     // Define the logger object for this class
     private final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -55,6 +58,13 @@ public class StockInfoServiceImpl implements StockInfoService {
 	public List<StockInfo> findAll() {
 		List<StockInfo> siList = siRepo.findAll();	
 		return siList;
+	}
+	
+	@Override
+	public int count() {
+	    // type casing long to int which is fine because number of stocks will never 
+	    // exceed 2147483647 (max. integer value)
+	    return (int) siRepo.count();
 	}
 
 	@Override

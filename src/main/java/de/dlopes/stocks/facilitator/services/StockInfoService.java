@@ -20,6 +20,8 @@ public interface StockInfoService {
 
 	public List<StockInfo> findAll();
 	
+	public int count();
+	
 	public void addStocks(AddStocksForm addStocksForm);
 
 }

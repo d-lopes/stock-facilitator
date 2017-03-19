@@ -20,11 +20,7 @@
 	<secured attributes="ROLE_USER" />
 	
 	<var name="addStocksForm" class="de.dlopes.stocks.facilitator.ui.forms.AddStocksForm"/>
-	
-	<on-start>
-		<evaluate expression="stockInfoService.findAll()" result="flowScope.stocks" />
-	</on-start>
-	
+		
 	<view-state id="loadStockInfo">	
 	    <transition on="load" to="viewStockInfo">
 			<evaluate expression="stockInfoService.addStocks(addStocksForm)" />
@@ -32,7 +28,7 @@
 	</view-state>
 	
 	<view-state id="viewStockInfo">
-        <var name="stocks" class="de.dlopes.stocks.facilitator.services.impl.util.LazyStockDataModel"/>
+       <var name="stocks" class="de.dlopes.stocks.facilitator.ui.forms.LazyStockDataModel"/>
        <transition on="select" to="showStockInfoDetails">
             <set name="flowScope.stock" value="stocks.selected" />
        </transition>
