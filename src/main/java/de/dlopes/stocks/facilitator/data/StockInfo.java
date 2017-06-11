@@ -15,7 +15,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -50,14 +52,33 @@ public class StockInfo implements Serializable {
 	private String isin;
 	
 	private String name;
-	private BigDecimal price;
+	
+	
+	private BigDecimal previousClose;
+    private BigDecimal open;
+    private BigDecimal price;
+	private BigDecimal dayHigh;
+    private BigDecimal dayLow;
+    
 	private BigDecimal bid;
-	private BigDecimal ask;
-	private BigDecimal changeInPercent;
+	private Long bidSize;
+    
+    private BigDecimal ask;
+	private Long askSize;
+    
+    private BigDecimal changeInPercent;
 	private BigDecimal change;
     
+    private Long volume;
+
     //private String index;	
-	private Timestamp lastChanged;
+	private Calendar lastTradeTime;
+    private Long lastTradeSize;
+    private Calendar lastChanged;
+    
+	// dividend dates
+	private Calendar dividendExDate;
+	private Calendar dividendPayDate;
 	
 	@OneToMany(mappedBy="stock")
 	private List<StockID> extIDs;
@@ -74,8 +95,9 @@ public class StockInfo implements Serializable {
 	
 	public StockInfo(String isin) {
 	    this.isin = isin;		
-	    Date now = new Date();
-	    this.lastChanged = new Timestamp(now.getTime());
+	    
+	    // TODO: move
+        this.lastChanged = new GregorianCalendar();
 	}
 	
 /*
@@ -109,7 +131,7 @@ public class StockInfo implements Serializable {
 	public void setExtID(StockID.PROVIDER provider, String value) throws IllegalArgumentException {
 	    
 	    // guard: we can only accept non-null providers
-	    if (provider == null || StringUtils.isEmpty(value)) {
+	    if (provider == null) {
 	        throw new IllegalArgumentException("provider must not be null");
 	    }
 	    
@@ -134,6 +156,71 @@ public class StockInfo implements Serializable {
 	    // add the new external ID
 	    extIDs.add(new StockID(provider, value, this));
 	    
+	}
+	
+	
+	public BigDecimal getKPI(StockKPI.TYPE type) {
+	    
+	    // guard: we can only consider non-null values
+	    if (type == null) {
+	        return null;
+	    }
+	    
+	    // guard: we can only return null when the list of KPIs has not even been
+	    // created
+	    if (kpis == null) {
+	        return null;
+	    }
+	    
+	    // try to find by the name of the kpi
+	    for (StockKPI kpi : kpis) {
+	        if (type.equals(kpi.getType())) {
+	            return kpi.getValue();
+	        }
+	    }
+	    
+	    // per default: return NULL
+	    return null;
+	}
+	
+	public void setKPI(StockKPI.TYPE type, BigDecimal value) throws IllegalArgumentException {
+	    
+	    boolean found = false;
+	    
+	    // guard: we can only accept non-null providers
+	    if (type == null) {
+	        throw new IllegalArgumentException("type must not be null");
+	    }
+	    
+	    // guard: we can only accept non-empty values	    
+	    if (StringUtils.isEmpty(value)) {
+	        return;
+	    }
+	    
+	    // if the list of KPIs does not exist yet, then we have to create it in order to 
+	    // avoid a NPE in the next step
+	    if (kpis == null) {
+	        kpis = new ArrayList<StockKPI>();
+	    }
+	    
+	    // try to find an existing KPI entry in order to carry out an update 
+	    for (StockKPI tmp: kpis) {
+	        if (type.equals(tmp.getType())) {
+	            tmp.setValue(value);
+	            found = true;
+	            break; // leave the as we have updated the KPI already
+            }
+	    }
+	    
+	    // Guard: if existing KPI was found, then skip further processing
+	    if (found) {
+	       return; 
+	    }
+	    
+	    // create and add a new KPI entry
+	    StockKPI kpi = new StockKPI(type, value, this);
+	    kpis.add(kpi);
+	    	    
 	}
 	
 }

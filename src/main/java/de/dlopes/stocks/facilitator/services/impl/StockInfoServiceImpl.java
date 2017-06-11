@@ -155,25 +155,24 @@ public class StockInfoServiceImpl implements StockInfoService, Serializable {
 		for (String symbol : stocks.keySet()) {
 			
 			Stock stock = stocks.get(symbol);	
-			// we need a unique String -> for now we just generate one 
-			// -> in the future we want to replace this with proper data
+			// TODO: refactor 
 			FinanznachrichtenOrderbuchExtractorImpl foei = new FinanznachrichtenOrderbuchExtractorImpl();
 			List<String> isins = foei.getFinanceData(FinanznachrichtenOrderbuchExtractorImpl.PREFIX + symbol.split("\\.")[0] + ".htm");
 			String isin = null;			
 			if (isins != null && isins.size() > 0) {
 			    isin = isins.get(0);
-			}
+		        }
 	    
-	        log.debug("creating StockInfo record for ISIN '" + isin + "'");			
-		
-		    StockInfo si = new StockInfo(isin);
-			Stock2StockInfoConverter.applyUpdates(stock, si);
-
-	        log.debug("yahoo data applied to StockInfo record for ISIN '" + isin + "'");						
-	        
-			siRepo.save(si);	
-			
-	        log.debug("StockInfo record for ISIN '" + isin + "' saved");						
+        	        log.debug("creating StockInfo record for ISIN '" + isin + "'");			
+        		
+        		StockInfo si = new StockInfo(isin);
+        	        Stock2StockInfoConverter.applyUpdates(stock, si);
+        
+        	        log.debug("yahoo data applied to StockInfo record for ISIN '" + isin + "'");						
+        	        
+        			siRepo.save(si);	
+        			
+        	        log.debug("StockInfo record for ISIN '" + isin + "' saved");						
 		}
 		siRepo.flush();
 
